@@ -48,7 +48,7 @@ namespace Albion.Data
             get => null;
             set
             {
-                PasswordHash = ComputeHash(value);
+                PasswordHash = Tools.ComputeHash(value);
             }
         }
 
