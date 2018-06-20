@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlbionAppImplementation", "AlbionAppImplementation\AlbionAppImplementation.csproj", "{5BB48DB8-2FCC-43B2-8CF8-552FF11BFC7F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Client", "Albion.Client\Albion.Client.csproj", "{59FBAD46-601E-40A6-87A1-27BE4A5CF768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Server", "Albion.Server\Albion.Server.csproj", "{353FEA40-E186-415C-9003-143B42BEBD57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Data", "Albion.Data\Albion.Data.csproj", "{C61F3635-2EC8-48A9-95D9-587699474387}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5BB48DB8-2FCC-43B2-8CF8-552FF11BFC7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BB48DB8-2FCC-43B2-8CF8-552FF11BFC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BB48DB8-2FCC-43B2-8CF8-552FF11BFC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BB48DB8-2FCC-43B2-8CF8-552FF11BFC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FBAD46-601E-40A6-87A1-27BE4A5CF768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FBAD46-601E-40A6-87A1-27BE4A5CF768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FBAD46-601E-40A6-87A1-27BE4A5CF768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FBAD46-601E-40A6-87A1-27BE4A5CF768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{353FEA40-E186-415C-9003-143B42BEBD57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{353FEA40-E186-415C-9003-143B42BEBD57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{353FEA40-E186-415C-9003-143B42BEBD57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{353FEA40-E186-415C-9003-143B42BEBD57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C61F3635-2EC8-48A9-95D9-587699474387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C61F3635-2EC8-48A9-95D9-587699474387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C61F3635-2EC8-48A9-95D9-587699474387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C61F3635-2EC8-48A9-95D9-587699474387}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
