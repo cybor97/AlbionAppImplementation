@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="AuthToken.cs" />
     <Compile Include="Course.cs" />
     <Compile Include="Mark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

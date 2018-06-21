@@ -13,10 +13,10 @@ namespace Albion.Data
         public string CourseName { get; set; }
 
         [Column("Places")]
-        public string Places { get; set; }
+        public int Places { get; set; }
 
         [Column("Price")]
-        public string Price { get; set; }
+        public int Price { get; set; }
 
         [Column("CourseNote")]
         public string CourseNote { get; set; }

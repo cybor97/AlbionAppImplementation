@@ -2,7 +2,35 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Администрирование" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <TabControl>
+        <TabItem Header="Учетные записи">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <ToggleButton  Content="Клиент"/>
+                    <ToggleButton  Content="Редактор" Margin="10 0"/>
+                    <ToggleButton  Content="Администратор"/>
+                </StackPanel>
+                <ListView Grid.Row="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ФИО" Width="250px"/>
+                            <GridViewColumn Header="ФИО обучающегося" Width="250px"/>
+                            <GridViewColumn Header="Дата рождения"/>
+                            <GridViewColumn Header="Дата рождения обучающегося"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemTemplate>
+                        <ItemContainerTemplate>
+                            
+                        </ItemContainerTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Отчет"></TabItem>
+    </TabControl>
 </Window>

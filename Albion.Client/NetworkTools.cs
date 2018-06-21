@@ -15,11 +15,20 @@ namespace Albion.Client
         {
             return JsonConvert.DeserializeObject<List<T>>(await (await HttpClient.GetAsync($"http://{Hostname}{path}")).Content.ReadAsStringAsync());
         }
-
-        public static async Task<(HttpStatusCode StatusCode, T Body)> PostAsync<T>(string path, T data)
+        //TODO: Deal with base "object" Body.
+        public static async Task<(HttpStatusCode StatusCode, object Body)> PostAsync<T>(string path, object data)
         {
             var requestResult = (await HttpClient.PostAsync($"http://{Hostname}{path}", new StringContent(JsonConvert.SerializeObject(data))));
-            return (requestResult.StatusCode, JsonConvert.DeserializeObject<T>(await requestResult.Content.ReadAsStringAsync()));
+            return (requestResult.StatusCode, (requestResult.IsSuccessStatusCode
+                ? (object)JsonConvert.DeserializeObject<T>(await requestResult.Content.ReadAsStringAsync())
+                : null));
+        }
+
+        public static async Task<HttpStatusCode> PostAsync(string path, object data)
+        {
+            return (await HttpClient.PostAsync($"http://{Hostname}{path}", new StringContent((data.GetType() == typeof(string))
+                ? (string)data
+                : JsonConvert.SerializeObject(data)))).StatusCode;
         }
     }
 }

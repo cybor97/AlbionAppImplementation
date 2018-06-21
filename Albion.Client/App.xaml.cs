@@ -7,6 +7,7 @@ namespace Albion.Client
     public partial class App : Application
     {
         public static Account Account { get; set; } = new Account();
+        public static AuthToken Token { get; set; }
 
         public App()
         {

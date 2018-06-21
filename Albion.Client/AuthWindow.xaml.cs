@@ -38,11 +38,12 @@ namespace Albion.Client
             try
             {
                 Account.Password = PasswordTB.Password;
-                var (StatusCode, Body) = await NetworkTools.PostAsync(_signUpMode ? "/Auth/SignUp" : "/Auth/SignIn", Account);
+                var (StatusCode, Body) = await NetworkTools.PostAsync<AuthToken>(_signUpMode ? "/Auth/SignUp" : "/Auth/SignIn", Account);
                 if (StatusCode == HttpStatusCode.OK)
                 {
                     DialogResult = true;
-                    App.Account = Body;
+                    //TODO:Implement WhoAmI functionality
+                    App.Token = (AuthToken)Body;
                 }
                 else MessageBox.Show("Неправильно указана электронная почта или пароль!");
             }

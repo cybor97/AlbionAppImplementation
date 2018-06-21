@@ -25,7 +25,7 @@ namespace Albion.Server
         public Task Handle(IHttpContext context, Func<Task> next)
         {
             var urlSegments = context.Request.Uri.OriginalString.Split('/');
-            RequestsMap[urlSegments[0]](urlSegments[1], context);
+            context.Response = RequestsMap[urlSegments[2]](urlSegments[3], context);
             return Task.Factory.GetCompleted();
         }
 

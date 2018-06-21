@@ -19,7 +19,7 @@ namespace Albion.Server
                     {
                         case "/Auth/SignIn":
                             if (account != null && account.CheckPassword(data.PasswordRaw))
-                                context.Response = this.Reply(Tools.ComputeHash(account.Email + account.Password));
+                                context.Response = this.Reply(new AuthToken(Tools.ComputeHash(account.Email + account.Password)));
                             else context.Response = this.Reply("Invalid email or password!", 403);
 
                             break;
