@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Server", "Albion.Ser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Data", "Albion.Data\Albion.Data.csproj", "{C61F3635-2EC8-48A9-95D9-587699474387}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Albion.Tests", "Albion.Tests\Albion.Tests.csproj", "{656CD950-58A3-45A6-922B-B0EEE870CDDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C61F3635-2EC8-48A9-95D9-587699474387}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C61F3635-2EC8-48A9-95D9-587699474387}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C61F3635-2EC8-48A9-95D9-587699474387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{656CD950-58A3-45A6-922B-B0EEE870CDDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{656CD950-58A3-45A6-922B-B0EEE870CDDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{656CD950-58A3-45A6-922B-B0EEE870CDDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{656CD950-58A3-45A6-922B-B0EEE870CDDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
