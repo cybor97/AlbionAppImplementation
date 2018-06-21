@@ -42,6 +42,9 @@ namespace Albion.Data
         public string PasswordHash { get; set; }
 
         [Ignore]
+        public string PasswordRaw { get; set; }
+
+        [Ignore]
         [JsonIgnore]
         public string Password
         {
@@ -55,6 +58,11 @@ namespace Albion.Data
         public bool CheckPassword(string password)
         {
             return Tools.ComputeHash(password) == PasswordHash;
+        }
+
+        public void HashPassword()
+        {
+            PasswordHash = Tools.ComputeHash(PasswordRaw);
         }
     }
 }

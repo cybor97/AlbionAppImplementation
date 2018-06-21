@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using uhttpsharp;
-using Newtonsoft.Json;
 using Albion.Data;
 using System.Collections.Generic;
 using SQLite;
@@ -12,6 +11,17 @@ namespace Albion.Server
     {
         static SQLiteConnection DBConnection => Program.DBConnection;
 
+        public DataHandler()
+        {
+            RequestsMap = new Dictionary<string, Func<string, IHttpContext, HttpResponse>>(){
+                {"Account", ProcessAccountRequest},
+                {"Course", ProcessCourceRequest },
+                {"Mark", ProcessMarkRequest },
+                {"Statement", ProcessStatementRequest },
+                {"Subscription", ProcessSubscriptionRequest}
+            };
+        }
+
         public Task Handle(IHttpContext context, Func<Task> next)
         {
             var urlSegments = context.Request.Uri.OriginalString.Split('/');
@@ -19,143 +29,138 @@ namespace Albion.Server
             return Task.Factory.GetCompleted();
         }
 
-        public Dictionary<string, Func<string, IHttpContext, HttpResponse>> RequestsMap = new Dictionary<string, Func<string, IHttpContext, HttpResponse>>(){
-            {"Account", ProcessAccountRequest},
-            {"Course",ProcessCourceRequest },
-            {"Mark",ProcessMarkRequest },
-            {"Statement",ProcessStatementRequest },
-            {"Subscription",ProcessSubscriptionRequest}
-        };
+        public Dictionary<string, Func<string, IHttpContext, HttpResponse>> RequestsMap;
 
-        static HttpResponse ProcessCourceRequest(string method, IHttpContext context)
+        HttpResponse ProcessCourceRequest(string method, IHttpContext context)
         {
             switch (method)
             {
                 case "GetCourses":
                     if (context.Request.Method == HttpMethods.Get)
-                        return Reply(DBConnection.Table<Course>().ToList().Serialize());
+                        return this.Reply(DBConnection.Table<Course>().ToList().Serialize());
                     break;
                 case "SetCourse":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Course>());
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
                 case "RemoveCourse":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Course>(context.Request.Post.Parsed.GetByName("ID"));
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
             }
-            return Reply(status: 404);
+            return this.Reply(status: 404);
         }
-        static HttpResponse ProcessAccountRequest(string method, IHttpContext context)
+        HttpResponse ProcessAccountRequest(string method, IHttpContext context)
         {
             switch (method)
             {
                 case "GetAccounts":
                     if (context.Request.Method == HttpMethods.Get)
-                        return Reply(DBConnection.Table<Account>().ToList().Serialize());
+                    {
+                        var accounts = DBConnection.Table<Account>().ToList();
+                        foreach (var acc in accounts)
+                            //Password hash is safer.. but there's just no reason to send it.
+                            acc.PasswordHash = null;
+                        return this.Reply(accounts.Serialize());
+                    }
                     break;
                 case "SetAccount":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Account>());
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
                 case "RemoveAccount":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Account>(context.Request.Post.Parsed.GetByName("ID"));
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
             }
-            return Reply(status: 404);
+            return this.Reply(status: 404);
         }
-        static HttpResponse ProcessMarkRequest(string method, IHttpContext context)
+        HttpResponse ProcessMarkRequest(string method, IHttpContext context)
         {
             switch (method)
             {
                 case "GetMark":
                     if (context.Request.Method == HttpMethods.Get)
-                        return Reply(DBConnection.Table<Mark>().ToList().Serialize());
+                        return this.Reply(DBConnection.Table<Mark>().ToList().Serialize());
                     break;
                 case "SetMark":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Mark>());
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
                 case "RemoveMark":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Mark>(context.Request.Post.Parsed.GetByName("ID"));
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
             }
-            return Reply(status: 404);
+            return this.Reply(status: 404);
         }
-        static HttpResponse ProcessStatementRequest(string method, IHttpContext context)
+        HttpResponse ProcessStatementRequest(string method, IHttpContext context)
         {
             switch (method)
             {
                 case "GetCourses":
                     if (context.Request.Method == HttpMethods.Get)
-                        return Reply(DBConnection.Table<Statement>().ToList().Serialize());
+                        return this.Reply(DBConnection.Table<Statement>().ToList().Serialize());
                     break;
                 case "SetCourse":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Statement>());
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
                 case "RemoveCourse":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Statement>(context.Request.Post.Parsed.GetByName("ID"));
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
             }
-            return Reply(status: 404);
+            return this.Reply(status: 404);
         }
-        static HttpResponse ProcessSubscriptionRequest(string method, IHttpContext context)
+        HttpResponse ProcessSubscriptionRequest(string method, IHttpContext context)
         {
             switch (method)
             {
                 case "GetSubscriptions":
                     if (context.Request.Method == HttpMethods.Get)
-                        return Reply(DBConnection.Table<Subscription>().ToList().Serialize());
+                        return this.Reply(DBConnection.Table<Subscription>().ToList().Serialize());
                     break;
                 case "SetSubscription":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Subscription>());
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
                 case "RemoveSubscription":
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Subscription>(context.Request.Post.Parsed.GetByName("ID"));
-                        return Reply();
+                        return this.Reply();
                     }
                     break;
             }
-            return Reply(status: 404);
-        }
-
-        public static HttpResponse Reply(object response = null, int status = 200)
-        {
-            return new HttpResponse((HttpResponseCode)status, response == null ? "" : response is string ? (string)response : JsonConvert.SerializeObject(response), false);
+            return this.Reply(status: 404);
         }
     }
 }

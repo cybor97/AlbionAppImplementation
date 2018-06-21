@@ -1,4 +1,5 @@
 ﻿using Albion.Data;
+using Newtonsoft.Json;
 using SQLite;
 using System;
 using System.IO;
@@ -14,10 +15,7 @@ namespace Albion.Server
 {
     static class Program
     {
-        //TODO: Продумать архитектуру(если посчитаешь эту хреновой)
-        //TODO: Создать остальные обработчики(если надо)
         private static HttpServer Server;
-        //Чтобы не было конфликтов с одинаковыми названиями(на всякий случай)
         public static SQLiteConnection DBConnection { get; set; }
 
         public static bool Working => Server != null;
@@ -50,12 +48,17 @@ namespace Albion.Server
                 Server.Use(new HttpRouter()
                 .With("Auth", new AuthHandler())
                 .With("Data", new DataHandler()));
-                
+
                 Server.Start();
             }
 
             while (true)
                 Thread.Sleep(5000);
+        }
+
+        public static HttpResponse Reply(this IHttpRequestHandler handler, object response = null, int status = 200)
+        {
+            return new HttpResponse((HttpResponseCode)status, response == null ? "" : response is string ? (string)response : JsonConvert.SerializeObject(response), false);
         }
     }
 }
