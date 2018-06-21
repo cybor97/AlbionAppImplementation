@@ -22,7 +22,7 @@ namespace Albion.Data
         public string StartDate { get; set; } = DateTime.Now.ToString(CultureInfo.InvariantCulture.DateTimeFormat);
 
         [Column("FinishDate")]
-        public int FinishDate { get; set; }
+        public string FinishDate { get; set; }
 
         [Column("State")]
         public int State { get; set; } = INACTIVE;
