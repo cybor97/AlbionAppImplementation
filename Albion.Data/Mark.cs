@@ -7,9 +7,8 @@ namespace Albion.Data
     public class Mark
     {
         [PrimaryKey]
-        [AutoIncrement]
         [Column("ID")]
-        public int ID { get; set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
 
         [Column("Value")]
         public string Value { get; set; }

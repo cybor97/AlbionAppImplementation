@@ -1,5 +1,6 @@
 ﻿using Albion.Data;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using uhttpsharp;
 
@@ -13,28 +14,27 @@ namespace Albion.Server
             {
                 if (context.Request.Uri.OriginalString == "/Auth/SignIn" || context.Request.Uri.OriginalString == "/Auth/SignUp")
                 {
-                    var account = Program.DBConnection.Table<Account>().FirstOrDefault(acc => acc.Email == context.Request.Post.Parsed.GetByName("Email"));
+                    var data = context.Request.Post.Raw.Deserialize<Account>();
+                    var account = Program.DBConnection.Table<Account>().FirstOrDefault(acc => acc.Email == data.Email);
                     switch (context.Request.Uri.OriginalString)
                     {
                         case "/Auth/SignIn":
-                            if (account != null && account.CheckPassword(context.Request.Post.Parsed.GetByName("Password")))
+                            if (account != null && account.CheckPassword(data.PasswordRaw))
                                 context.Response = this.Reply(Tools.ComputeHash(account.Email + account.Password));
                             else context.Response = this.Reply("Invalid email or password!", 403);
 
                             break;
                         case "/Auth/SignUp":
                             if (account == null)
-                                context.Response = this.Reply("Sorry, account with this email already exists!", 400);
-                            else
                             {
-                                var newAccount = context.Request.Post.Raw.Deserialize<Account>();
-                                newAccount.HashPassword();
-                                Program.DBConnection.Insert(newAccount);
+                                data.HashPassword();
+                                Program.DBConnection.Insert(data);
                                 //DO NOT RETURN PASSWORDS!
-                                newAccount.PasswordRaw = newAccount.PasswordHash = null;
+                                data.PasswordRaw = data.PasswordHash = null;
 
-                                context.Response = this.Reply(newAccount);
+                                context.Response = this.Reply(data);
                             }
+                            else context.Response = this.Reply("Sorry, account with this email already exists!", 400);
                             break;
                     }
                 }

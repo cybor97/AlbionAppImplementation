@@ -1,10 +1,13 @@
-﻿using System.Diagnostics;
+﻿using Albion.Data;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Albion.Client
 {
     public partial class App : Application
     {
+        public static Account Account { get; set; } = new Account();
+
         public App()
         {
             InitializeComponent();

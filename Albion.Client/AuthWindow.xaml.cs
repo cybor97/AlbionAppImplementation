@@ -1,10 +1,15 @@
-﻿using System.Windows;
+﻿using Albion.Data;
+using System.Net;
+using System.Net.Http;
+using System.Windows;
 
 namespace Albion.Client
 {
     public partial class AuthWindow : Window
     {
+        public Account Account => App.Account;
         bool _signUpMode = false;
+
         public bool SignUpMode
         {
             get { return _signUpMode; }
@@ -20,6 +25,7 @@ namespace Albion.Client
         public AuthWindow()
         {
             InitializeComponent();
+            DataContext = Account;
         }
 
         private void SwitchModeButton_Click(object sender, RoutedEventArgs e)
@@ -27,11 +33,23 @@ namespace Albion.Client
             SignUpMode = !SignUpMode;
         }
 
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            //Execute SignIn or SignUp method here
-            DialogResult = true;
-            Close();
+            try
+            {
+                Account.Password = PasswordTB.Password;
+                var (StatusCode, Body) = await NetworkTools.PostAsync(_signUpMode ? "/Auth/SignUp" : "/Auth/SignIn", Account);
+                if (StatusCode == HttpStatusCode.OK)
+                {
+                    DialogResult = true;
+                    App.Account = Body;
+                }
+                else MessageBox.Show("Неправильно указана электронная почта или пароль!");
+            }
+            catch (HttpRequestException exc)
+            {
+                MessageBox.Show(exc.ToString());
+            }
         }
     }
 }

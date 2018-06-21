@@ -8,8 +8,7 @@ namespace Albion.Data
     {
         [Column("ID")]
         [PrimaryKey]
-        [AutoIncrement]
-        public int ID { get; set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
 
         [Column("StatementName")]
         public string StatementName { get; set; }

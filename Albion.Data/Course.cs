@@ -1,13 +1,13 @@
 ﻿using SQLite;
+using System;
 
 namespace Albion.Data
 {
     public class Course
     {
         [PrimaryKey]
-        [AutoIncrement]
         [Column("ID")]
-        public int ID { get; set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
 
         [Column("CourseName")]
         public string CourseName { get; set; }

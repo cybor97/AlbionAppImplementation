@@ -10,8 +10,7 @@ namespace Albion.Data
     {
         [Column("ID")]
         [PrimaryKey]
-        [AutoIncrement]
-        public int ID { get; set; }
+        public string ID { get; set; } = Guid.NewGuid().ToString();
 
         [Column("FullName")]
         public string FullName { get; set; }
@@ -52,6 +51,7 @@ namespace Albion.Data
             set
             {
                 PasswordHash = Tools.ComputeHash(value);
+                PasswordRaw = value;
             }
         }
 

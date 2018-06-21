@@ -6,24 +6,22 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Vertical" Name="SignUpContainer" Visibility="Collapsed">
                 <Label>ФИО</Label>
-                <TextBox Name="FullNameTB"/>
+                <TextBox Name="FullNameTB" Text="{Binding FullName}"/>
                 <Label>ФИО студента</Label>
-                <TextBox Name="StudentFullNameTB"/>
+                <TextBox Name="StudentFullNameTB" Text="{Binding StudentFullName}"/>
                 <Label>Дата рождения</Label>
-                <TextBox Name="BirthDateTB"/>
+                <TextBox Name="BirthDateTB" Text="{Binding BirthDate}"/>
                 <Label>Дата рождения студента</Label>
-                <TextBox Name="StudentBirthDateTB"/>
+                <TextBox Name="StudentBirthDateTB" Text="{Binding StudentBirthDate}"/>
                 <Label>Телефон</Label>
-                <TextBox Name="PhoneNumberTB"/>
-                <Label>Электронная почта</Label>
-                <TextBox Name="EMailTB"/>
+                <TextBox Name="PhoneNumberTB" Text="{Binding PhoneNumber}"/>
                 <Label>Адрес</Label>
-                <TextBox Name="AddressTB"/>
+                <TextBox Name="AddressTB" Text="{Binding Address}"/>
                 <Label>Способ оплаты</Label>
-                <TextBox Name="PaymentTypeTB"/>
+                <TextBox Name="PaymentTypeTB" Text="{Binding PaymentType}"/>
             </StackPanel>
-            <Label>Имя пользователя</Label>
-            <TextBox Name="UserNameTB"/>
+            <Label>Электронная почта</Label>
+            <TextBox Name="EmailTB" Text="{Binding Email}"/>
             <Label>Пароль</Label>
             <PasswordBox Name="PasswordTB"/>
         </StackPanel>
