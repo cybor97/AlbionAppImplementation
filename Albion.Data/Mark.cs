@@ -10,6 +10,9 @@ namespace Albion.Data
         [Column("ID")]
         public string ID { get; set; } = Guid.NewGuid().ToString();
 
+        [Column("AccountID")]
+        public string AccountID { get; set; }
+
         [Column("Value")]
         public string Value { get; set; }
 

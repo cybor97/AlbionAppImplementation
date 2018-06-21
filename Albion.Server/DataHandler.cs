@@ -31,31 +31,6 @@ namespace Albion.Server
 
         public Dictionary<string, Func<string, IHttpContext, HttpResponse>> RequestsMap;
 
-        HttpResponse ProcessCourceRequest(string method, IHttpContext context)
-        {
-            switch (method)
-            {
-                case "GetCourses":
-                    if (context.Request.Method == HttpMethods.Get)
-                        return this.Reply(DBConnection.Table<Course>().ToList().Serialize());
-                    break;
-                case "SetCourse":
-                    if (context.Request.Method == HttpMethods.Post)
-                    {
-                        DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Course>());
-                        return this.Reply();
-                    }
-                    break;
-                case "RemoveCourse":
-                    if (context.Request.Method == HttpMethods.Post)
-                    {
-                        DBConnection.Delete<Course>(context.Request.Post.Parsed.GetByName("ID"));
-                        return this.Reply();
-                    }
-                    break;
-            }
-            return this.Reply(status: 404);
-        }
         HttpResponse ProcessAccountRequest(string method, IHttpContext context)
         {
             switch (method)
@@ -81,6 +56,31 @@ namespace Albion.Server
                     if (context.Request.Method == HttpMethods.Post)
                     {
                         DBConnection.Delete<Account>(context.Request.Post.Parsed.GetByName("ID"));
+                        return this.Reply();
+                    }
+                    break;
+            }
+            return this.Reply(status: 404);
+        }
+        HttpResponse ProcessCourceRequest(string method, IHttpContext context)
+        {
+            switch (method)
+            {
+                case "GetCourses":
+                    if (context.Request.Method == HttpMethods.Get)
+                        return this.Reply(DBConnection.Table<Course>().ToList().Serialize());
+                    break;
+                case "SetCourse":
+                    if (context.Request.Method == HttpMethods.Post)
+                    {
+                        DBConnection.InsertOrReplace(context.Request.Post.Raw.Deserialize<Course>());
+                        return this.Reply();
+                    }
+                    break;
+                case "RemoveCourse":
+                    if (context.Request.Method == HttpMethods.Post)
+                    {
+                        DBConnection.Delete<Course>(context.Request.Post.Parsed.GetByName("ID"));
                         return this.Reply();
                     }
                     break;

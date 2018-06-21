@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
 using SQLite;
 using System;
-using System.Security.Cryptography;
-using System.Text;
-
 namespace Albion.Data
 {
+    [Table("Account")]
     public class Account
     {
         [Column("ID")]

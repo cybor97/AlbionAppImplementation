@@ -12,6 +12,12 @@ namespace Albion.Data
         [Column("ID")]
         public string ID { get; set; } = Guid.NewGuid().ToString();
 
+        [Column("AccountID")]
+        public string AccountID { get; set; }
+
+        [Column("CourseID")]
+        public string CourseID { get; set; }
+
         [Column("StartDate")]
         public string StartDate { get; set; } = DateTime.Now.ToString(CultureInfo.InvariantCulture.DateTimeFormat);
 
