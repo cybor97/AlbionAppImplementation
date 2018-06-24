@@ -6,6 +6,8 @@ namespace Albion.Data
     [Table("Account")]
     public class Account
     {
+        public static int AL_ADMIN = 0, AL_EDITOR = 1, AL_USER = 2;
+
         [Column("ID")]
         [PrimaryKey]
         public string ID { get; set; } = Guid.NewGuid().ToString();
@@ -33,7 +35,7 @@ namespace Albion.Data
         public string Address { get; set; }
 
         [Column("AccessLevel")]
-        public string AccessLevel { get; set; }
+        public int AccessLevel { get; set; }
 
         [Column("PasswordHash")]
         public string PasswordHash { get; set; }

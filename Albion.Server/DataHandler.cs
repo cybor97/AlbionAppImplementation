@@ -91,7 +91,7 @@ namespace Albion.Server
         {
             switch (method)
             {
-                case "GetMark":
+                case "GetMarks":
                     if (context.Request.Method == HttpMethods.Get)
                         return this.Reply(DBConnection.Table<Mark>().ToList().Serialize());
                     break;

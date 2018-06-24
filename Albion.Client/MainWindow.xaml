@@ -4,8 +4,8 @@
         Title="Альбион" Height="450" Width="800"
         Loaded="MainWindow_Loaded">
     <Grid>
-        <TabControl>
-            <TabItem Header="Курсы">
+        <TabControl Name="AlbionUITabs">
+            <TabItem Header="Курсы" Name="CoursesTab">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -47,12 +47,84 @@
                             <TextBox Width="335" Text="{Binding Description}"/>
                         </StackPanel>
                         <Button Content="Сохранить" Margin="10 0 0 0" Click="SaveCourseButton_Click"/>
-                        <Button Content="Отменить" Margin="5 0 0 0" Click="CancelCourseButton_Click"/>
+                        <Button Content="Отменить" Margin="5 0 0 0" Click="CancelButton_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Оценки"></TabItem>
-            <TabItem Header="Ведомости"></TabItem>
+            <TabItem Header="Оценки" Name="MarksTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="Red" Grid.Row="0">
+
+                    </Grid>
+                    <ListView Name="MarksLV" Grid.Row="1" SelectionChanged="MarksLV_Selected">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Дата" Width="250" DisplayMemberBinding="{Binding MarkDate}"/>
+                                <GridViewColumn Header="Оценка" Width="250" DisplayMemberBinding="{Binding MarkValue}"/>
+                                <GridViewColumn Header="Примечание" Width="300" DisplayMemberBinding="{Binding MarkNote}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2" Name="MarkSettingContainer" Visibility="Visible">
+                        <StackPanel>
+                            <TextBlock>Студент</TextBlock>
+                            <ComboBox Width="150" IsEditable="True" 
+                                      DisplayMemberPath="StudentFullName"
+                                      SelectedItem="{Binding Student}"
+                                      Name="StudentsCB"/>
+                        </StackPanel>
+                        <StackPanel Margin="5 0">
+                            <TextBlock>Курс</TextBlock>
+                            <ComboBox Width="150" IsEditable="True" 
+                                      DisplayMemberPath="CourseName"
+                                      SelectedItem="{Binding Course}"
+                                      Name="CoursesCB"/>
+                        </StackPanel>
+                        <StackPanel Margin="0 0 5 0">
+                            <TextBlock>Оценка</TextBlock>
+                            <TextBox Width="50" Text="{Binding MarkValue}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock>Примечание</TextBlock>
+                            <TextBox Width="285" Text="{Binding MarkNote}"/>
+                        </StackPanel>
+                        <Button Content="Сохранить" Margin="10 0 0 0" Click="SaveMarkButton_Click"/>
+                        <Button Content="Отменить" Margin="5 0 0 0" Click="CancelButton_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ведомости" Name="StatementsTab">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="Red" Grid.Row="0">
+
+                    </Grid>
+                    <ListView Name="StatementsLV" Grid.Row="1" 
+                             MouseDoubleClick="StatementsLV_DoubleClick">
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить" Click="RemoveItem_Click"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Название" Width="400" DisplayMemberBinding="{Binding StatementName}"/>
+                                <GridViewColumn Header="С" Width="150" DisplayMemberBinding="{Binding StatementPeriodStart}"/>
+                                <GridViewColumn Header="До" Width="150" DisplayMemberBinding="{Binding StatementPeriodEnd}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
         </TabControl>
         <Button VerticalAlignment="Top" HorizontalAlignment="Right" Content="Добавить" Name="AddButton" Click="AddButton_Click"/>
     </Grid>

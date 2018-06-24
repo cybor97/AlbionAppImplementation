@@ -10,24 +10,19 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
-                    <ToggleButton  Content="Клиент"/>
-                    <ToggleButton  Content="Редактор" Margin="10 0"/>
-                    <ToggleButton  Content="Администратор"/>
+                    <ToggleButton Content="Клиент"/>
+                    <ToggleButton Content="Редактор" Margin="10 0"/>
+                    <ToggleButton Content="Администратор"/>
                 </StackPanel>
                 <ListView Grid.Row="1">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ФИО" Width="250px"/>
-                            <GridViewColumn Header="ФИО обучающегося" Width="250px"/>
-                            <GridViewColumn Header="Дата рождения"/>
-                            <GridViewColumn Header="Дата рождения обучающегося"/>
+                            <GridViewColumn Header="ФИО" Width="250px" DisplayMemberBinding="{Binding FullName}"/>
+                            <GridViewColumn Header="ФИО обучающегося" Width="250px" DisplayMemberBinding="{Binding StudentFullName}"/>
+                            <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding BirthDate}"/>
+                            <GridViewColumn Header="Дата рождения обучающегося" DisplayMemberBinding="{Binding StudentBirthDate}"/>
                         </GridView>
                     </ListView.View>
-                    <ListView.ItemTemplate>
-                        <ItemContainerTemplate>
-                            
-                        </ItemContainerTemplate>
-                    </ListView.ItemTemplate>
                 </ListView>
             </Grid>
         </TabItem>

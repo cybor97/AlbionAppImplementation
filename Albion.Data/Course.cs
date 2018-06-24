@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Newtonsoft.Json;
+using SQLite;
 using System;
 
 namespace Albion.Data
@@ -20,5 +21,9 @@ namespace Albion.Data
 
         [Column("CourseNote")]
         public string CourseNote { get; set; }
+
+        [Ignore]
+        [JsonIgnore]
+        public int TotalProfit { get; set; }
     }
 }
